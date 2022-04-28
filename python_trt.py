@@ -6,22 +6,22 @@ import time as t
 
 class Detector():
     def __init__(self,model_path,dll_path):
-        self.retinanet = CDLL(dll_path)
-        self.retinanet.Detect.argtypes = [c_void_p,c_int,c_int,POINTER(c_ubyte),c_float,npct.ndpointer(dtype = np.float32, ndim = 2, shape = (1000, 15), flags="C_CONTIGUOUS")]
-        self.retinanet.Init.restype = c_void_p
-        self.retinanet.Init.argtypes = [c_void_p]
-        self.retinanet.cuda_free.argtypes = [c_void_p]
-        self.c_point = self.retinanet.Init(model_path)
+        self.retinaface = CDLL(dll_path)
+        self.retinaface.Detect.argtypes = [c_void_p,c_int,c_int,POINTER(c_ubyte),c_float,npct.ndpointer(dtype = np.float32, ndim = 2, shape = (1000, 15), flags="C_CONTIGUOUS")]
+        self.retinaface.Init.restype = c_void_p
+        self.retinaface.Init.argtypes = [c_void_p]
+        self.retinaface.cuda_free.argtypes = [c_void_p]
+        self.c_point = self.retinaface.Init(model_path)
 
     def predict(self,img,threshold):
         rows, cols = img.shape[0], img.shape[1]
         res_arr = np.zeros((1000,15),dtype=np.float32)
-        self.retinanet.Detect(self.c_point,c_int(rows), c_int(cols), img.ctypes.data_as(POINTER(c_ubyte)),c_float(threshold),res_arr)
+        self.retinaface.Detect(self.c_point,c_int(rows), c_int(cols), img.ctypes.data_as(POINTER(c_ubyte)),c_float(threshold),res_arr)
         self.bbox_array = res_arr[~(res_arr==0).all(1)]
         return self.bbox_array
 
     def free(self):
-        self.retinanet.cuda_free(self.c_point)
+        self.retinaface.cuda_free(self.c_point)
 
 def visualize(img,bbox_array):
     for temp in bbox_array:

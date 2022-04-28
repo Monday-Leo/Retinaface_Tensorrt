@@ -393,7 +393,7 @@ typedef struct
 	int inputIndex;
 	int outputIndex;
 
-}RetinanetTRTContext;
+}RetinafaceTRTContext;
 
 extern "C" __declspec(dllexport) void* Init(char *model_path)
 {
@@ -403,7 +403,7 @@ extern "C" __declspec(dllexport) void* Init(char *model_path)
 	size_t size_e{ 0 };
 	std::string engine_name = model_path;
 	std::ifstream file(engine_name, std::ios::binary);
-	RetinanetTRTContext * trt = new RetinanetTRTContext();
+	RetinafaceTRTContext * trt = new RetinafaceTRTContext();
 	if (file.good()) {
 		file.seekg(0, file.end);
 		size_e = file.tellg();
@@ -442,7 +442,7 @@ extern "C" __declspec(dllexport) void* Init(char *model_path)
 
 extern "C" __declspec(dllexport) void Detect(void *h, int rows, int cols, unsigned char *src_data, float threshold, float(*res_array)[15])
 {
-	RetinanetTRTContext *trt = (RetinanetTRTContext *)h;
+	RetinafaceTRTContext *trt = (RetinafaceTRTContext *)h;
 	cv::Mat img = cv::Mat(rows, cols, CV_8UC3, src_data);
 	// prepare input data ---------------------------
 	cv::Mat pr_img = preprocess_img(img, INPUT_W, INPUT_H); // letterbox BGR to RGB
@@ -483,7 +483,7 @@ extern "C" __declspec(dllexport) void Detect(void *h, int rows, int cols, unsign
 
 
 extern "C" __declspec(dllexport) void cuda_free(void*h) {
-	RetinanetTRTContext *trt = (RetinanetTRTContext *)h;
+	RetinafaceTRTContext *trt = (RetinafaceTRTContext *)h;
 	cudaStreamDestroy(trt->stream);
 	CHECK(cudaFree(trt->buffers[trt->inputIndex]));
 	CHECK(cudaFree(trt->buffers[trt->outputIndex]));
