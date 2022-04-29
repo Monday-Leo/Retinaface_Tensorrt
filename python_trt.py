@@ -28,7 +28,7 @@ def visualize(img,bbox_array):
         #bbox = [temp[0],temp[1],temp[2],temp[3]]  #xywh
         cv2.rectangle(img,(int(temp[0]),int(temp[1])),(int(temp[0])+int(temp[2]),int(temp[1])+int(temp[3])), (105, 237, 249), 2)
         for k in range(5,15,2):
-                cv2.circle(img, (temp[k],temp[k+1]), 1, (255 * (k > 7), 255 * (k > 5 and k < 13), 255 * (k < 11)), 4)
+                cv2.circle(img, (int(temp[k]),int(temp[k+1])), 1, (255 * (k > 7), 255 * (k > 5 and k < 13), 255 * (k < 11)), 4)
     return img
 
 det = Detector(model_path=b"./retina_mnet.engine",dll_path="./retina_mnet.dll")  # b'' is needed

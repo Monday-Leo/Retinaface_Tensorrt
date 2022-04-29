@@ -7,8 +7,8 @@ import torch.backends.cudnn as cudnn
 import argparse
 
 parser = argparse.ArgumentParser(description='Retinaface')
-parser.add_argument('-m', '--trained_model', default='./weights/Resnet50_Final.pth',type=str)
-parser.add_argument('--network', default='resnet50', help='mobile0.25 or resnet50')
+parser.add_argument('-m', '--trained_model', default='./weights/mobilenet0.25_Final.pth',type=str)
+parser.add_argument('--network', default='mobile0.25', help='mobile0.25 or resnet50')
 args = parser.parse_args()
 
 
