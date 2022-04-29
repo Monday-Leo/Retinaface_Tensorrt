@@ -101,7 +101,7 @@ ICudaEngine* createEngine(unsigned int maxBatchSize, IBuilder* builder, IBuilder
     ITensor* data = network->addInput(INPUT_BLOB_NAME, dt, Dims3{3, INPUT_H, INPUT_W});
     assert(data);
 
-    std::map<std::string, Weights> weightMap = loadWeights("./retinaface.wts");
+    std::map<std::string, Weights> weightMap = loadWeights("./mobile0_25.wts");
     Weights emptywts{DataType::kFLOAT, nullptr, 0};
 
     // ------------- backbone mobilenet0.25  ---------------

@@ -52,9 +52,11 @@ if __name__ == '__main__':
     if args.network == "mobile0.25":
         cfg = cfg_mnet
         cfg["pretrain"] = False
+        save_name = "mobile0_25.wts"
     elif args.network == "resnet50":
         cfg = cfg_re50
         cfg["pretrain"] = False
+        save_name = "resnet50.wts"
     net = RetinaFace(cfg=cfg, phase = 'test')
     net = load_model(net, args.trained_model, False)
     net.eval()
@@ -62,11 +64,11 @@ if __name__ == '__main__':
     cudnn.benchmark = True
     device = torch.device("cuda")
     net = net.to(device)
-
-    if os.path.exists('retinaface.wts'):
+    
+    if os.path.exists(save_name):
         print("Error retinaface.wts already exist!")
     else:
-        f = open("retinaface.wts", 'w')
+        f = open(save_name, 'w')
         f.write("{}\n".format(len(net.state_dict().keys())))
         for k,v in net.state_dict().items():
             print('key: ', k)
