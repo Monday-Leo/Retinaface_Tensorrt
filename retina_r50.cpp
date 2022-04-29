@@ -382,7 +382,7 @@ int main(int argc, char** argv) {
                 cv::circle(tmp, cv::Point(res[j].landmark[k], res[j].landmark[k + 1]), 1, cv::Scalar(255 * (k > 2), 255 * (k > 0 && k < 8), 255 * (k < 6)), 4);
             }
         }
-        cv::imwrite(std::to_string(b) + "_result.jpg", tmp);
+        cv::imwrite(std::to_string(b) + "_r50_result.jpg", tmp);
     }
 
     // Destroy the engine
