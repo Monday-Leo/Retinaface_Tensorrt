@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.6)
 
 project(retinaface)
 
-set(OpenCV_DIR "G:\\c++\\paddle_test\\opencv\\build")  #2
-set(TRT_DIR "G:\\c++\\TensorRT-8.2.1.8")   #3
+set(OpenCV_DIR "G:\\c++\\paddle_test\\opencv\\build")
+set(TRT_DIR "G:\\c++\\TensorRT-8.2.1.8")
 
 add_definitions(-std=c++11)
 add_definitions(-DAPI_EXPORTS)
